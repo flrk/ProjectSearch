@@ -20,7 +20,7 @@ public class LevyFlight {
     public double doubleValue(){
         double u = getGaussianDistribution(0.0, sigmaU);
         double v = getGaussianDistribution(0.0, sigmaV);
-        return u/Math.pow(Math.abs(v),1/beta);
+        return u / Math.pow(Math.abs(v),1/beta);
     }
 
     private void calculateSigmaU(){

@@ -13,6 +13,12 @@ public class Nest {
     }
 
     public void setEgg(Egg newEgg){
-        eggs.set(0,newEgg);
+        if(isNewEggBetter(newEgg)){
+            eggs.set(0,newEgg);
+        }
+    }
+
+    private boolean isNewEggBetter(Egg newEgg){
+        return newEgg.getFitness() < eggs.get(0).getFitness();
     }
 }

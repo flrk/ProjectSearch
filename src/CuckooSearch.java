@@ -18,7 +18,9 @@ public class CuckooSearch {
         initializeNests();
         int t = 0;
         while(t < generations){
-
+            Cuckoo cuckoo = new Cuckoo(nests[2].getEgg());
+            cuckoo.makeFlight();
+            nests[5].setEgg(cuckoo.layEgg());
             t++;
         }
     }

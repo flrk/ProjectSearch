@@ -21,8 +21,10 @@ public class Main {
 
         CuckooSearch cs = new CuckooSearch(25,0.25,500,fitness);
 
-        for(int i =0; i < 40; ++i){
-            System.out.println(new LevyFlight().init().doubleValue());
+
+        Cuckoo cuckoo = new Cuckoo(new Egg(new int[fitness.getDataset().getSize()],fitness));
+        for(int i = 0; i < 40; ++i){
+            cuckoo.makeFlight();
         }
 
 
