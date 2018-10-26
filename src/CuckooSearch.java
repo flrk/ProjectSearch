@@ -30,6 +30,8 @@ public class CuckooSearch {
             cuckoo.makeFlight();
             getRandomNest().setEgg(cuckoo.layEgg());
             Collections.sort(nests);
+            removeEggsDiscoveredByHost();
+            Collections.sort(nests);
             t++;
         }
     }
@@ -38,6 +40,19 @@ public class CuckooSearch {
         TSPSolution tspSolution = new TSPSolution(fitness.getDataset());
         for (int i = 0; i < numberOfNests; ++i) {
             nests.add(new Nest(new Egg(tspSolution.getNewRandomSolution(), fitness)));
+        }
+    }
+
+    private void removeEggsDiscoveredByHost() {
+        TSPSolution tspSolution = new TSPSolution(fitness.getDataset());
+        for(int i = 1; i < nests.size(); ++i){
+            if(random.nextDouble() < probability){
+                int[] newSolution = tspSolution.getNewRandomSolution();
+                Egg newEgg = new Egg(newSolution, fitness);
+                Nest nest = nests.get(i);
+                nest.removeEgg();
+                nest.setEgg(newEgg);
+            }
         }
     }
 
