@@ -26,6 +26,10 @@ public class Egg {
         return path.clone();
     }
 
+    public Fitness getFitnessFunction(){
+        return fitness;
+    }
+
     private boolean isFitnessCalculated(){
         return fitnessValue != NOT_CALCULATED;
     }

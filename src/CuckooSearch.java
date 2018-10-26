@@ -26,11 +26,11 @@ public class CuckooSearch {
         initializeNests();
         int t = 0;
         while(t < generations){
-            /*Cuckoo cuckoo = new Cuckoo(getRandomNest().getEgg());
+            Cuckoo cuckoo = new Cuckoo(getRandomNest().getEgg(), getBestNest().getEgg());
             cuckoo.makeFlight();
-            getRandomNest().setEgg(cuckoo.layEgg());*/
+            getRandomNest().setEgg(cuckoo.layEgg());
             Collections.sort(nests);
-            t = generations;
+            t++;
         }
     }
 
@@ -43,6 +43,10 @@ public class CuckooSearch {
 
     private Nest getRandomNest(){
         return nests.get(random.nextInt(nests.size()));
+    }
+
+    private Nest getBestNest(){
+        return nests.get(0);
     }
 }
 
