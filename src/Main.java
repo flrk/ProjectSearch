@@ -4,6 +4,8 @@ import com.hsh.parser.Node;
 import com.hsh.parser.Parser;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
+import java.util.Random;
 
 public class Main {
 
@@ -20,15 +22,7 @@ public class Main {
         Fitness fitness = new Fitness(dataset);
 
         CuckooSearch cs = new CuckooSearch(25,0.25,500,fitness);
-
-
-        Cuckoo cuckoo = new Cuckoo(new Egg(new int[fitness.getDataset().getSize()],fitness));
-        for(int i = 0; i < 40; ++i){
-            cuckoo.makeFlight();
-        }
-
-
-
+        cs.findSolution();
     }
 }
 

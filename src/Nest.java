@@ -18,7 +18,9 @@ public class Nest implements Comparable<Nest>{
     }
 
     public void setEgg(Egg newEgg){
-        if(eggs.isEmpty()|| isNewEggBetter(newEgg)){
+        if(eggs.isEmpty()){
+            eggs.add(newEgg);
+        } else if(isNewEggBetter(newEgg)){
             eggs.set(0,newEgg);
         }
     }

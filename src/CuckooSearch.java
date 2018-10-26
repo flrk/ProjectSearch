@@ -24,16 +24,23 @@ public class CuckooSearch {
 
     public void findSolution(){
         initializeNests();
+        Collections.sort(nests);
+
         int t = 0;
         while(t < generations){
-            Cuckoo cuckoo = new Cuckoo(getRandomNest().getEgg(), getBestNest().getEgg());
-            cuckoo.makeFlight();
-            getRandomNest().setEgg(cuckoo.layEgg());
+            System.out.println("Generation "+t);
+            for(Nest n: nests){
+                Cuckoo cuckoo = new Cuckoo(n.getEgg(), getBestNest().getEgg());
+                cuckoo.makeFlight();
+                getRandomNest().setEgg(cuckoo.layEgg());
+            }
             Collections.sort(nests);
             removeEggsDiscoveredByHost();
             Collections.sort(nests);
             t++;
         }
+
+        System.out.println("Fitness: "+getBestNest().getEgg().getFitness());
     }
 
     private void initializeNests(){

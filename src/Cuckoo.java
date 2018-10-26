@@ -9,11 +9,25 @@ public class Cuckoo {
     }
 
     public void makeFlight(){
+        double lowerBound = -200;
+        double upperBound = 200;
 
-        double stepSize = calculateStepSize();
-        //System.out.println(stepSize);
-        oldEgg.getPath();
-        //TODO: transform oldEgg to newEgg via LevyFlight
+        double stepSize = Math.max(lowerBound, Math.min(upperBound,calculateStepSize()));
+
+        double norm = (stepSize - lowerBound)/(upperBound - lowerBound);
+
+        TwoOptSwap twoOptSwap = new TwoOptSwap();
+        int[] newPath = oldEgg.getPath();
+        if(norm < 0.8){
+            for(double i = 0.0; i < norm; i += 0.2){
+                newPath = twoOptSwap.doSwap(newPath);
+            }
+        }else{
+            newPath = new DoubleBridgeMove().doMove(newPath);
+        }
+
+        newEgg = new Egg(newPath,oldEgg.getFitnessFunction());
+
 
     }
 
