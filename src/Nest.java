@@ -1,11 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Nest {
+public class Nest implements Comparable<Nest>{
     private final List<Egg> eggs;
 
     public Nest(){
         eggs = new ArrayList<>();
+    }
+
+    public Nest(Egg egg){
+        this();
+        eggs.add(egg);
     }
 
     public Egg getEgg(){
@@ -20,5 +25,10 @@ public class Nest {
 
     private boolean isNewEggBetter(Egg newEgg){
         return newEgg.getFitness() < eggs.get(0).getFitness();
+    }
+
+    @Override
+    public int compareTo(Nest other) {
+        return this.getEgg().getFitness() - other.getEgg().getFitness();
     }
 }
