@@ -1,6 +1,7 @@
 import com.hsh.Fitness;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -28,11 +29,12 @@ public class CuckooSearch {
 
         int t = 0;
         while(t < generations){
-            System.out.println("Generation "+t);
+            System.out.println("Generation "+ t + "\n Best Fitness: " + getBestNest().getEgg().getFitness());
             for(Nest n: nests){
                 Cuckoo cuckoo = new Cuckoo(n.getEgg(), getBestNest().getEgg());
                 cuckoo.makeFlight();
                 getRandomNest().setEgg(cuckoo.layEgg());
+
             }
             Collections.sort(nests);
             removeEggsDiscoveredByHost();
@@ -40,7 +42,8 @@ public class CuckooSearch {
             t++;
         }
 
-        System.out.println("Fitness: "+getBestNest().getEgg().getFitness());
+        System.out.println("Final Fitness: "+getBestNest().getEgg().getFitness());
+        System.out.println("Final Fitness: "+ Arrays.toString(getBestNest().getEgg().getPath()));
     }
 
     private void initializeNests(){

@@ -39,7 +39,7 @@ public class Cuckoo {
     }
 
     public Egg layEgg(){
-        newEgg = new Egg(new TSPSolution(oldEgg.getFitnessFunction().getDataset()).getNewRandomSolution(),oldEgg.getFitnessFunction());
+        newEgg = new Egg(newEgg.getPath() ,oldEgg.getFitnessFunction());
         return newEgg;
     }
 }

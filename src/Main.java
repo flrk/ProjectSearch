@@ -14,14 +14,14 @@ public class Main {
         Dataset dataset = null;
 
         try{
-            dataset = Parser.read("ressources\\a280.tsp");
+            dataset = Parser.read("ressources/a280.tsp");
         }catch(IOException e){
             e.printStackTrace();
         }
 
         Fitness fitness = new Fitness(dataset);
 
-        CuckooSearch cs = new CuckooSearch(25,0.25,500,fitness);
+        CuckooSearch cs = new CuckooSearch(20,0.25,500,fitness);
         cs.findSolution();
     }
 }
