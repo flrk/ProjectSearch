@@ -19,9 +19,9 @@ public class Main {
             e.printStackTrace();
         }
 
-        Fitness fitness = new Fitness(dataset);
+        Fitness fitness = new Fitness(dataset, false);
 
-        CuckooSearch cs = new CuckooSearch(20,0.25,500,fitness);
+        CuckooSearch cs = new CuckooSearch(50,0.20,500,fitness);
         cs.findSolution();
     }
 }

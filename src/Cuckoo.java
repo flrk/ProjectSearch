@@ -1,23 +1,26 @@
-public class Cuckoo {
-    private final Egg oldEgg;
-    private final Egg bestEgg;
-    private Egg newEgg;
+import com.hsh.Evaluable;
 
-    public Cuckoo(Egg oldEgg, Egg bestEgg){
-        this.bestEgg = bestEgg;
-        this.oldEgg = oldEgg;
+import java.util.ArrayList;
+
+public class Cuckoo extends Evaluable {
+    private Egg egg;
+    private int[] path;
+    private int oldFitness;
+
+    public Cuckoo(int[] path, int oldFitness){
+        this.path = path.clone();
+        this.oldFitness = oldFitness;
     }
 
-    public void makeFlight(){
+    public void makeFlight(int best){
         double lowerBound = -200;
         double upperBound = 200;
 
-        double stepSize = Math.max(lowerBound, Math.min(upperBound,calculateStepSize()));
-
+        double stepSize = Math.max(lowerBound, Math.min(upperBound,calculateStepSize(best)));
         double norm = (stepSize - lowerBound)/(upperBound - lowerBound);
 
         TwoOptSwap twoOptSwap = new TwoOptSwap();
-        int[] newPath = oldEgg.getPath();
+        int[] newPath = path;
         if(norm < 0.8){
             for(double i = 0.0; i < norm; i += 0.2){
                 newPath = twoOptSwap.doSwap(newPath);
@@ -26,20 +29,23 @@ public class Cuckoo {
             newPath = new DoubleBridgeMove().doMove(newPath);
         }
 
-        newEgg = new Egg(newPath,oldEgg.getFitnessFunction());
-
-
+        egg = new Egg(newPath);
     }
 
-    private double calculateStepSize(){
+    private double calculateStepSize(int best){
         double lfValue = new  LevyFlight().init().doubleValue();
-        double diffToBestSolution = oldEgg.getFitness() - bestEgg.getFitness();
-        //System.out.println("Levy: "+lfValue+"; Diff: "+diffToBestSolution );
+        double diffToBestSolution = oldFitness - best;
+        //System.out.println("Levy: "+lfValue+"; Diff: "+diffToBestSolution + " " + (0.01 * lfValue * diffToBestSolution) );
         return 0.01 * lfValue * diffToBestSolution;
     }
 
     public Egg layEgg(){
-        newEgg = new Egg(newEgg.getPath() ,oldEgg.getFitnessFunction());
-        return newEgg;
+        return egg;
+    }
+
+
+    @Override
+    public ArrayList<Integer> getPath() {
+        return egg.getPath();
     }
 }

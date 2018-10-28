@@ -1,3 +1,4 @@
+import com.hsh.Evaluable;
 import com.hsh.Fitness;
 
 import java.util.ArrayList;
@@ -25,17 +26,25 @@ public class CuckooSearch {
 
     public void findSolution(){
         initializeNests();
-        Collections.sort(nests);
 
         int t = 0;
         while(t < generations){
-            System.out.println("Generation "+ t + "\n Best Fitness: " + getBestNest().getEgg().getFitness());
+            //System.out.println("Generation "+ t + "\n Best Fitness: " + getBestNest().getEgg().getFitness());
+            int best = getBestNest().getEgg().getFitness();
             for(Nest n: nests){
-                Cuckoo cuckoo = new Cuckoo(n.getEgg(), getBestNest().getEgg());
-                cuckoo.makeFlight();
-                getRandomNest().setEgg(cuckoo.layEgg());
+                Cuckoo cuckoo = new Cuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
+                cuckoo.makeFlight(best);
+                fitness.evaluate(cuckoo, -1);
+                getRandomNest().setEgg(cuckoo);
 
             }
+            fitness.evaluate(getAllEggs());
+            for(Evaluable egg : getAllEggs()){
+                if(!egg.isValid()){
+                    System.out.println("Invalid");
+                }
+            }
+
             Collections.sort(nests);
             removeEggsDiscoveredByHost();
             Collections.sort(nests);
@@ -43,27 +52,38 @@ public class CuckooSearch {
         }
 
         System.out.println("Final Fitness: "+getBestNest().getEgg().getFitness());
-        System.out.println("Final Fitness: "+ Arrays.toString(getBestNest().getEgg().getPath()));
+        System.out.println("Final Fitness: "+ Arrays.toString(getBestNest().getEgg().getPathAsArray()));
     }
 
     private void initializeNests(){
         TSPSolution tspSolution = new TSPSolution(fitness.getDataset());
         for (int i = 0; i < numberOfNests; ++i) {
-            nests.add(new Nest(new Egg(tspSolution.getNewRandomSolution(), fitness)));
+            nests.add(new Nest(new Egg(tspSolution.getNewRandomSolution())));
         }
+        fitness.evaluate(getAllEggs());
+        Collections.sort(nests);
     }
 
     private void removeEggsDiscoveredByHost() {
         TSPSolution tspSolution = new TSPSolution(fitness.getDataset());
-        for(int i = 1; i < nests.size(); ++i){
+        for(int i = 2; i < nests.size(); ++i){
             if(random.nextDouble() < probability){
                 int[] newSolution = tspSolution.getNewRandomSolution();
-                Egg newEgg = new Egg(newSolution, fitness);
-                Nest nest = nests.get(i);
-                nest.removeEgg();
-                nest.setEgg(newEgg);
+                Egg newEgg = new Egg(newSolution);
+                nests.set(i, new Nest(newEgg));
+                //Nest nest = nests.get(i);
+               // nest.removeEgg();
+                //nest.setEgg(newEgg);
             }
         }
+    }
+
+    private ArrayList<Evaluable> getAllEggs(){
+        ArrayList<Evaluable> toReturn = new ArrayList<>();
+        for(Nest nest : nests){
+            toReturn.add(nest.getEgg());
+        }
+        return toReturn;
     }
 
     private Nest getRandomNest(){

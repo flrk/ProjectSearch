@@ -1,36 +1,26 @@
 import com.hsh.Evaluable;
 import com.hsh.Fitness;
 
-public class Egg {
-    private final int NOT_CALCULATED = Integer.MIN_VALUE;
+import java.util.ArrayList;
+
+public class Egg extends Evaluable{
     private final int[] path;
-    private final Fitness fitness;
-    private int fitnessValue;
 
-
-    public Egg(int[] solution, Fitness fitness){
-        path = solution;
-        this.fitness = fitness;
-        fitnessValue = NOT_CALCULATED;
+    public Egg(int[] solution){
+        path = solution.clone();
     }
 
-    public int getFitness(){
-        if(!isFitnessCalculated()){
-            Evaluable result = fitness.evaluate(path, -1);
-            fitnessValue = result.getFitness();
+    @Override
+    public ArrayList<Integer> getPath() {
+        ArrayList<Integer> toReturn = new ArrayList<>();
+        for(int id : path){
+            toReturn.add(id);
         }
-        return fitnessValue;
+        return toReturn;
     }
 
-    public int[] getPath(){
+    public int[] getPathAsArray(){
         return path.clone();
     }
 
-    public Fitness getFitnessFunction(){
-        return fitness;
-    }
-
-    private boolean isFitnessCalculated(){
-        return fitnessValue != NOT_CALCULATED;
-    }
 }
