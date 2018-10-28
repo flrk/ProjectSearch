@@ -21,11 +21,12 @@ public class Cuckoo extends Evaluable {
 
         TwoOptSwap twoOptSwap = new TwoOptSwap();
         int[] newPath = path;
-        if(norm < 0.8){
+        if(norm <= 0.8){
             for(double i = 0.0; i < norm; i += 0.2){
                 newPath = twoOptSwap.doSwap(newPath);
             }
         }else{
+
             newPath = new DoubleBridgeMove().doMove(newPath);
         }
 

@@ -41,7 +41,8 @@ public class CuckooSearch {
             fitness.evaluate(getAllEggs());
             for(Evaluable egg : getAllEggs()){
                 if(!egg.isValid()){
-                    System.out.println("Invalid");
+                    System.out.println(egg.getErrorCode());
+                    System.out.println(egg.getPath());
                 }
             }
 
