@@ -53,7 +53,7 @@ public class CuckooSearch {
         }
 
         System.out.println("Final Fitness: "+getBestNest().getEgg().getFitness());
-        System.out.println("Final Fitness: "+ Arrays.toString(getBestNest().getEgg().getPathAsArray()));
+        System.out.println("Final Path: "+ Arrays.toString(getBestNest().getEgg().getPathAsArray()));
     }
 
     private void initializeNests(){

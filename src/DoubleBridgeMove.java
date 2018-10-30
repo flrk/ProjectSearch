@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class DoubleBridgeMove {
@@ -22,10 +23,16 @@ public class DoubleBridgeMove {
             indices[i] = indices[i - 1] + random;
         }
 
-        for(int i = 0; i < indices.length; i += 2){
-            newPath[indices[i]] = path[indices[i+1]];
-            newPath[indices[i+1]] = path[indices[i]];
-        }
-        return newPath;
+        int[] t1 = Arrays.copyOfRange(newPath, 0, indices[0]);
+        int[] t2 = Arrays.copyOfRange(newPath, indices[2], newPath.length);
+        int[] t3 = Arrays.copyOfRange(newPath, indices[1], indices[2]);
+        int[] t4 = Arrays.copyOfRange(newPath, indices[0], indices[1]);
+
+        int[] result = ArrayUtil.concat(t1,t2);
+        int[] t3t4 = ArrayUtil.concat(t3, t4);
+        result = ArrayUtil.concat(result, t3t4);
+
+        return result;
     }
+
 }

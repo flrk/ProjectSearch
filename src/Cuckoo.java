@@ -13,8 +13,8 @@ public class Cuckoo extends Evaluable {
     }
 
     public void makeFlight(int best){
-        double lowerBound = -200;
-        double upperBound = 200;
+        double lowerBound = -75;
+        double upperBound = 75;
 
         double stepSize = Math.max(lowerBound, Math.min(upperBound,calculateStepSize(best)));
         double norm = (stepSize - lowerBound)/(upperBound - lowerBound);
