@@ -18,13 +18,13 @@ public class LevyFlight {
     }
 
     public double doubleValue(){
-        double u = getGaussianDistribution(0.0, sigmaU);
+        double u = getGaussianDistribution(0.0, sigmaU*sigmaU);
         double v = getGaussianDistribution(0.0, sigmaV);
         return u / Math.pow(Math.abs(v),1/beta);
     }
 
     private void calculateSigmaU(){
-        double numerator = new Gamma().calculate((1 + beta) * Math.sin(Math.PI*beta/2));
+        double numerator = new Gamma().calculate((1 + beta)) * Math.sin(Math.PI*beta/2);
         double denominator = new Gamma().calculate(((1 + beta)/2) * beta * Math.pow(2,(beta-1)/2));
         sigmaU = Math.pow(numerator/denominator, 1/beta);
     }

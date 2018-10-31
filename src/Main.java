@@ -5,6 +5,8 @@ import com.hsh.parser.Parser;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Main {
@@ -21,9 +23,10 @@ public class Main {
 
         Fitness fitness = new Fitness(dataset, false);
 
-        CuckooSearch cs = new CuckooSearch(25,0.25,15000,fitness);
+        CuckooSearch cs = new CuckooSearch(25,0.25,1000,fitness);
         cs.findSolution();
     }
+
 }
 
 

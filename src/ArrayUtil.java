@@ -7,6 +7,17 @@ public class ArrayUtil {
         }
     }
 
+    public static void reversePart(int[] array, int from, int to){
+        int segmentLength = to - from;
+        int segmentEnd = array.length - to;
+        int endIndex = array.length - 1 - segmentEnd;
+        for (int i =  0; i < segmentLength/2; i++) {
+            int temp = array[i+from];
+            array[i+from] = array[endIndex - i];
+            array[endIndex - i] = temp;
+        }
+    }
+
 
     public static int[] concat(int[] a, int[] b){
         int[] ab = new int[a.length + b.length];

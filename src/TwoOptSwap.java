@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Random;
 
 public class TwoOptSwap {
@@ -9,13 +8,12 @@ public class TwoOptSwap {
     }
 
     public int[] doSwap(int[] path){
-
         int[] newPath = path.clone();
-        int firstIndex = rand.nextInt(path.length - 1) + 1;
-        int secondIndex = rand.nextInt(path.length - 1) + 1;
+        int firstIndex = rand.nextInt(path.length);
+        int secondIndex = rand.nextInt(path.length);
 
-        while(firstIndex == secondIndex){
-            secondIndex = rand.nextInt(path.length - 1) + 1;
+        while(Math.abs(firstIndex-secondIndex) <= 1){
+            secondIndex = rand.nextInt(path.length);
         }
 
         if(firstIndex > secondIndex){
@@ -24,17 +22,7 @@ public class TwoOptSwap {
             firstIndex = tmp;
         }
 
-        int[] t1 = Arrays.copyOfRange(path,0, firstIndex);
-        int[] t2 = Arrays.copyOfRange(path, firstIndex, secondIndex);
-        ArrayUtil.reverse(t2);
-        int[] t3 = Arrays.copyOfRange(path, secondIndex, path.length);
-
-        newPath = ArrayUtil.concat(t1,t2);
-        newPath = ArrayUtil.concat(newPath, t3);
-
+        ArrayUtil.reversePart(newPath,firstIndex,secondIndex);
         return newPath;
     }
-
-
-
 }
