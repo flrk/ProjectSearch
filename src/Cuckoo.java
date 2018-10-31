@@ -14,15 +14,15 @@ public class Cuckoo extends Evaluable {
 
     public void makeFlight(int best){
         double lowerBound = 0;
-        double upperBound = 30000;
+        double upperBound = 20000;
 
         double stepSize = Math.max(lowerBound, Math.min(upperBound,calculateStepSize(best)));
         double norm = (stepSize - lowerBound)/(upperBound - lowerBound);
         norm = (norm == 0.0) ? 0.05 : norm;
 
-        TwoOptSwap twoOptSwap = new TwoOptSwap();
         int[] newPath = path;
         if(norm <= 0.8){
+            TwoOptSwap twoOptSwap = new TwoOptSwap();
             for(double i = 0.0; i < norm; i += 0.2){
                 newPath = twoOptSwap.doSwap(newPath);
             }

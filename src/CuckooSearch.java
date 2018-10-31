@@ -34,8 +34,9 @@ public class CuckooSearch {
             for(Nest n: nests){
                 Cuckoo cuckoo = new Cuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
                 cuckoo.makeFlight(best);
-                fitness.evaluate(cuckoo, -1);
-                getRandomNest().setEgg(cuckoo);
+                Egg newEgg = cuckoo.layEgg();
+                fitness.evaluate(newEgg, -1);
+                getRandomNest().placeEgg(newEgg);
 
             }
             fitness.evaluate(getAllEggs());
@@ -72,9 +73,7 @@ public class CuckooSearch {
                 int[] newSolution = tspSolution.getNewRandomSolution();
                 Egg newEgg = new Egg(newSolution);
                 nests.set(i, new Nest(newEgg));
-                //Nest nest = nests.get(i);
-               // nest.removeEgg();
-                //nest.setEgg(newEgg);
+
             }
         }
     }

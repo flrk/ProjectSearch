@@ -20,11 +20,11 @@ public class Nest implements Comparable<Nest>{
     }
 
 
-    public void setEgg(Cuckoo cuckoo){
+    public void placeEgg(Egg newEgg){
         if(eggs.isEmpty()){
-            eggs.add(cuckoo.layEgg());
-        } else if(isNewEggBetter(cuckoo.getFitness())){
-            eggs.set(0,cuckoo.layEgg());
+            eggs.add(newEgg);
+        } else if(isNewEggBetter(newEgg.getFitness())){
+            eggs.set(0,newEgg);
         }
     }
 
