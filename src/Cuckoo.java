@@ -20,10 +20,13 @@ public class Cuckoo extends Evaluable {
         double norm = (stepSize - lowerBound)/(upperBound - lowerBound);
         norm = (norm == 0.0) ? 0.05 : norm;
 
+        double steps = 1.0/5.0;
+        double lastInterval = 1.0 - steps;
+
         int[] newPath = path;
-        if(norm <= 0.8){
+        if(norm <= lastInterval){
             TwoOptSwap twoOptSwap = new TwoOptSwap();
-            for(double i = 0.0; i < norm; i += 0.2){
+            for(double i = 0.0; i < norm; i += steps){
                 newPath = twoOptSwap.doSwap(newPath);
             }
         }else{
