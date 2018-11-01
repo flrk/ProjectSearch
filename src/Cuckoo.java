@@ -1,6 +1,7 @@
 import com.hsh.Evaluable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Cuckoo extends Evaluable {
     private Egg egg;
@@ -12,11 +13,11 @@ public class Cuckoo extends Evaluable {
         this.oldFitness = oldFitness;
     }
 
-    public void makeFlight(int best){
+    public void makeFlight(int best, double c){
         double lowerBound = 0;
-        double upperBound = 20000;
+        double upperBound = 10000;
 
-        double stepSize = Math.max(lowerBound, Math.min(upperBound,calculateStepSize(best)));
+        double stepSize = Math.max(lowerBound, Math.min(upperBound,calculateStepSize(best,c)));
         double norm = (stepSize - lowerBound)/(upperBound - lowerBound);
         norm = (norm == 0.0) ? 0.05 : norm;
 
@@ -36,12 +37,12 @@ public class Cuckoo extends Evaluable {
         egg = new Egg(newPath);
     }
 
-    private double calculateStepSize(int best){
+    private double calculateStepSize(int best, double c){
         double lfValue = new  LevyFlight().init().doubleValue();
         lfValue = Math.abs(lfValue);
         double diffToBestSolution = oldFitness - best;
-        //System.out.println("Levy: "+lfValue+"; Diff: "+diffToBestSolution + " " + (0.01 * lfValue * diffToBestSolution) );
-        return 0.01 * lfValue * diffToBestSolution;
+        //System.out.println("Levy: "+lfValue+"; Old: "+oldFitness+"; Diff: "+diffToBestSolution + " " + (0.01 * lfValue * diffToBestSolution) );
+        return c * lfValue * diffToBestSolution;
     }
 
     public Egg layEgg(){

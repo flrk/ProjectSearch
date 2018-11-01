@@ -28,12 +28,15 @@ public class CuckooSearch {
         initializeNests();
 
         int t = 0;
+        double c = 0.01;
         while(t < generations){
             //System.out.println("Generation "+ t + "\n Best Fitness: " + getBestNest().getEgg().getFitness());
+            c = 4*c*(1-c);
+            //System.out.println("C: "+c);
             int best = getBestNest().getEgg().getFitness();
             for(Nest n: nests){
                 Cuckoo cuckoo = new Cuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
-                cuckoo.makeFlight(best);
+                cuckoo.makeFlight(best, c);
                 Egg newEgg = cuckoo.layEgg();
                 fitness.evaluate(newEgg, -1);
                 getRandomNest().placeEgg(newEgg);
@@ -72,8 +75,8 @@ public class CuckooSearch {
             if(random.nextDouble() < probability){
                 int[] newSolution = tspSolution.getNewRandomSolution();
                 Egg newEgg = new Egg(newSolution);
+                fitness.evaluate(newEgg,-1);
                 nests.set(i, new Nest(newEgg));
-
             }
         }
     }
