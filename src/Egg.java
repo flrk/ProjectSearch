@@ -3,7 +3,7 @@ import com.hsh.Fitness;
 
 import java.util.ArrayList;
 
-public class Egg extends Evaluable{
+public class Egg extends Evaluable implements Comparable<Egg>{
     private final int[] path;
 
     public Egg(int[] solution){
@@ -21,6 +21,11 @@ public class Egg extends Evaluable{
 
     public int[] getPathAsArray(){
         return path.clone();
+    }
+
+    @Override
+    public int compareTo(Egg other) {
+        return this.getFitness() - other.getFitness();
     }
 
 }

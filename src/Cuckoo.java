@@ -1,7 +1,5 @@
 import com.hsh.Evaluable;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Cuckoo extends Evaluable {
     private Egg egg;
@@ -39,9 +37,7 @@ public class Cuckoo extends Evaluable {
 
     private double calculateStepSize(int best, double c){
         double lfValue = new  LevyFlight().init().doubleValue();
-        lfValue = Math.abs(lfValue);
         double diffToBestSolution = oldFitness - best;
-        //System.out.println("Levy: "+lfValue+"; Old: "+oldFitness+"; Diff: "+diffToBestSolution + " " + (0.01 * lfValue * diffToBestSolution) );
         return c * lfValue * diffToBestSolution;
     }
 

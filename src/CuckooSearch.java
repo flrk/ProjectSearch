@@ -30,9 +30,9 @@ public class CuckooSearch {
         int t = 0;
         double c = 0.01;
         while(t < generations){
-            //System.out.println("Generation "+ t + "\n Best Fitness: " + getBestNest().getEgg().getFitness());
+
             c = 4*c*(1-c);
-            //System.out.println("C: "+c);
+
             int best = getBestNest().getEgg().getFitness();
             for(Nest n: nests){
                 Cuckoo cuckoo = new Cuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
@@ -71,10 +71,11 @@ public class CuckooSearch {
 
     private void removeEggsDiscoveredByHost() {
         TSPSolution tspSolution = new TSPSolution(fitness.getDataset());
-        for(int i = 2; i < nests.size(); ++i){
+
+        for(int i = 4; i < nests.size(); ++i){
             if(random.nextDouble() < probability){
-                int[] newSolution = tspSolution.getNewRandomSolution();
-                Egg newEgg = new Egg(newSolution);
+                //int[] newSolution = tspSolution.getNewRandomSolution();
+                Egg newEgg = new Egg(getBestNest().getEgg().getPathAsArray());
                 fitness.evaluate(newEgg,-1);
                 nests.set(i, new Nest(newEgg));
             }

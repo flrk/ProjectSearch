@@ -1,6 +1,7 @@
 import com.hsh.Fitness;
 import com.hsh.parser.Dataset;
 import com.hsh.parser.Parser;
+
 import java.io.IOException;
 
 
@@ -18,10 +19,9 @@ public class Main {
 
         Fitness fitness = new Fitness(dataset, false);
 
-        CuckooSearch cs = new CuckooSearch(25,0.25,1000,fitness);
+        CuckooSearch cs = new CuckooSearch(20,0.2,10000, fitness);
         cs.findSolution();
     }
-
 }
 
 
