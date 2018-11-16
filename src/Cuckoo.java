@@ -1,42 +1,36 @@
+package cs;
+
 import com.hsh.Evaluable;
+import csmath.LevyFlight;
 import java.util.ArrayList;
 
-public class Cuckoo extends Evaluable {
-    private Egg egg;
-    private int[] path;
-    private int oldFitness;
 
-    public Cuckoo(int[] path, int oldFitness){
-        this.path = path.clone();
-        this.oldFitness = oldFitness;
+abstract class Cuckoo extends Evaluable {
+    Egg egg;
+    int[] path;
+    int oldFitness;
+
+    abstract public void makeFlight(int best, double c);
+
+    double getNumberOfSteps(){
+        return 1.0/5.0;
     }
 
-    public void makeFlight(int best, double c){
+    double getLastInterval(double numberOfSteps){
+        return 1.0 - numberOfSteps;
+    }
+
+    double getNormalizedStepSize(int best, double c){
         double lowerBound = 0;
         double upperBound = 10000;
 
         double stepSize = Math.max(lowerBound, Math.min(upperBound,calculateStepSize(best,c)));
         double norm = (stepSize - lowerBound)/(upperBound - lowerBound);
-        norm = (norm == 0.0) ? 0.05 : norm;
-
-        double steps = 1.0/5.0;
-        double lastInterval = 1.0 - steps;
-
-        int[] newPath = path;
-        if(norm <= lastInterval){
-            TwoOptSwap twoOptSwap = new TwoOptSwap();
-            for(double i = 0.0; i < norm; i += steps){
-                newPath = twoOptSwap.doSwap(newPath);
-            }
-        }else{
-            newPath = new DoubleBridgeMove().doMove(newPath);
-        }
-
-        egg = new Egg(newPath);
+        return (norm == 0.0) ? 0.05 : norm;
     }
 
     private double calculateStepSize(int best, double c){
-        double lfValue = new  LevyFlight().init().doubleValue();
+        double lfValue = new LevyFlight().init().doubleValue();
         double diffToBestSolution = oldFitness - best;
         return c * lfValue * diffToBestSolution;
     }

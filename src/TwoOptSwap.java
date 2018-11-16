@@ -1,3 +1,5 @@
+package tsp;
+
 import java.util.Random;
 
 public class TwoOptSwap {

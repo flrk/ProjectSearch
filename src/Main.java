@@ -19,7 +19,7 @@ public class Main {
 
         Fitness fitness = new Fitness(dataset, false);
 
-        CuckooSearch cs = new CuckooSearch(20,0.2,10000, fitness);
+        CuckooSearch cs = new CuckooSearch(25,0.25,10000, fitness);
         cs.findSolution();
     }
 }

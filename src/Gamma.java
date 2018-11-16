@@ -1,4 +1,4 @@
-//source: https://rosettacode.org/wiki/Gamma_function#Java
+package csmath;//source: https://rosettacode.org/wiki/Gamma_function#Java
 //Lanczos approximation
 //keine Ahnung ob das erlaubt ist, müssten wir ihn fragen
 

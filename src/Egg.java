@@ -1,5 +1,6 @@
+package cs;
+
 import com.hsh.Evaluable;
-import com.hsh.Fitness;
 
 import java.util.ArrayList;
 

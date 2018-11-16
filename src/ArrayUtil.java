@@ -1,3 +1,5 @@
+package tsp;
+
 public class ArrayUtil {
     public static void reverse(int[] array) {
         for (int i = 0; i < array.length / 2; i++) {

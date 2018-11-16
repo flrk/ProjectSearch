@@ -1,3 +1,5 @@
+package tsp;
+
 import com.hsh.parser.Dataset;
 import com.hsh.parser.Node;
 
