@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
+import java.util.function.Consumer;
 
 
 public class CuckooSearch {
@@ -34,44 +35,46 @@ public class CuckooSearch {
         int t = 0;
         double c = 0.01;
         while(t < generations){
-
             c = 4*c*(1-c);
+            final double cc = c;
+            final int best = getBestNest().getEgg().getFitness();
 
-            int best = getBestNest().getEgg().getFitness();
-            boolean firstBestNest = true;
-            for(Nest n: nests){
-                Cuckoo cuckoo;
-                if(n.getEgg().getFitness() == best && firstBestNest){
-                    cuckoo = new NormalCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
-                    firstBestNest = false;
-                }else if(n.getEgg().getFitness() == best && !firstBestNest){
-                    cuckoo = new EscapingCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
-                }else{
-                    cuckoo = new SmartCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness(), fitness);
-                }
+            ArrayList<Cuckoo> cuckoos = hatchOut(best);
+            cuckoos.stream().parallel().forEach(flight(cc, best));
 
-                cuckoo.makeFlight(best, c);
-                Egg newEgg = cuckoo.layEgg();
-                fitness.evaluate(newEgg, -1);
-                getRandomNest().placeEgg(newEgg);
-
-            }
             fitness.evaluate(getAllEggs());
-            for(Evaluable egg : getAllEggs()){
-                if(!egg.isValid()){
-                    System.out.println(egg.getErrorCode());
-                    System.out.println(egg.getPath());
-                }
-            }
-
             Collections.sort(nests);
             removeEggsDiscoveredByHost();
             Collections.sort(nests);
             t++;
         }
+    }
 
-        System.out.println("Final Fitness: "+getBestNest().getEgg().getFitness());
-        System.out.println("Final Path: "+ Arrays.toString(getBestNest().getEgg().getPathAsArray()));
+    private Consumer<Cuckoo> flight(final double cc, final int best){
+        return (Cuckoo cuckoo) -> {
+            cuckoo.makeFlight(best, cc);
+            Egg newEgg = cuckoo.layEgg();
+            fitness.evaluate(newEgg, -1);
+            getRandomNest().placeEgg(newEgg);
+        };
+    }
+
+    private ArrayList<Cuckoo> hatchOut(int best){
+        ArrayList<Cuckoo> cuckoos = new ArrayList<>();
+        boolean firstBestNest = true;
+        for(Nest n : nests){
+            Cuckoo cuckoo;
+            if(n.getEgg().getFitness() == best && firstBestNest){
+                cuckoo = new NormalCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
+                firstBestNest = false;
+            }else if(n.getEgg().getFitness() == best && !firstBestNest){
+                cuckoo = new EscapingCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
+            }else{
+                cuckoo = new SmartCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness(), fitness);
+            }
+            cuckoos.add(cuckoo);
+        }
+        return cuckoos;
     }
 
     private void initializeNests(){
