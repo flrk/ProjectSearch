@@ -1,6 +1,7 @@
-package cs;
+package hsh.cs;
 
-import tsp.DoubleBridgeMove;
+
+import hsh.tsp.DoubleBridgeMove;
 
 public class EscapingCuckoo extends Cuckoo {
 

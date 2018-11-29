@@ -1,4 +1,4 @@
-package cs;
+package hsh.cs;
 
 import com.hsh.Evaluable;
 

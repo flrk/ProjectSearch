@@ -1,4 +1,4 @@
-package csmath;
+package hsh.csmath;
 
 import java.util.Random;
 

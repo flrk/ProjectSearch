@@ -1,7 +1,8 @@
-package cs;
+package hsh.cs;
 
-import tsp.DoubleBridgeMove;
-import tsp.TwoOptSwap;
+
+import hsh.tsp.DoubleBridgeMove;
+import hsh.tsp.TwoOptSwap;
 
 public class NormalCuckoo extends Cuckoo {
 

@@ -1,7 +1,8 @@
-package cs;
+package hsh.cs;
 
 import com.hsh.Evaluable;
-import csmath.LevyFlight;
+import hsh.csmath.LevyFlight;
+
 import java.util.ArrayList;
 
 

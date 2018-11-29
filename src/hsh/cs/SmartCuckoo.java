@@ -1,8 +1,9 @@
-package cs;
+package hsh.cs;
 
-import tsp.DoubleBridgeMove;
-import tsp.TwoOptSwap;
+
 import com.hsh.Fitness;
+import hsh.tsp.DoubleBridgeMove;
+import hsh.tsp.TwoOptSwap;
 
 public class SmartCuckoo extends Cuckoo {
     private Fitness fitness;

@@ -1,8 +1,9 @@
-package cs;
+package hsh.cs;
 
-import tsp.TSPSolution;
+
 import com.hsh.Evaluable;
 import com.hsh.Fitness;
+import hsh.tsp.TSPSolution;
 
 import java.util.ArrayList;
 import java.util.Arrays;

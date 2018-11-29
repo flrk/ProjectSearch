@@ -1,4 +1,4 @@
-package tsp;
+package hsh.tsp;
 
 import java.util.Random;
 
