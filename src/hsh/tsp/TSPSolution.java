@@ -5,13 +5,12 @@ import com.hsh.parser.Node;
 
 import java.util.*;
 
-public class TSPSolution {
-    private final Dataset dataset;
-
-    public TSPSolution(Dataset ds){
-        this.dataset = ds;
+public class TSPSolution extends Solution {
+    public TSPSolution(Dataset ds) {
+        super(ds);
     }
 
+    @Override
     public int[] getNewRandomSolution(){
 
         List<Node> nodesList = new ArrayList<>(Arrays.asList(dataset.getNodes()));
