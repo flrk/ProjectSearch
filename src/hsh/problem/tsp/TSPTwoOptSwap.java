@@ -1,10 +1,9 @@
-package hsh.tsp;
+package hsh.problem.tsp;
 
 import com.hsh.parser.Dataset;
+import hsh.problem.Swap;
 
-import java.util.Random;
-
-public class TSPTwoOptSwap extends Swap{
+public class TSPTwoOptSwap extends Swap {
 
     @Override
     public int[] doSwap(int[] path, Dataset dataset){

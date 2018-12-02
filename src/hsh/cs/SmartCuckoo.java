@@ -2,7 +2,7 @@ package hsh.cs;
 
 
 import com.hsh.Fitness;
-import hsh.tsp.Mutation;
+import hsh.problem.Mutation;
 
 public class SmartCuckoo extends Cuckoo {
     private Fitness fitness;

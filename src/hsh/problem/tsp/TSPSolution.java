@@ -1,7 +1,8 @@
-package hsh.tsp;
+package hsh.problem.tsp;
 
 import com.hsh.parser.Dataset;
 import com.hsh.parser.Node;
+import hsh.problem.Solution;
 
 import java.util.*;
 

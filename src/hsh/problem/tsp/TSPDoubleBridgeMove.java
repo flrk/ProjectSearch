@@ -1,10 +1,7 @@
-package hsh.tsp;
+package hsh.problem.tsp;
 
 import com.hsh.parser.Dataset;
-
-import java.util.Arrays;
-import java.util.Random;
-import java.util.TreeSet;
+import hsh.problem.Move;
 
 public class TSPDoubleBridgeMove extends Move {
 

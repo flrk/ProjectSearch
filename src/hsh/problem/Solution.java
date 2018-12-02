@@ -1,4 +1,4 @@
-package hsh.tsp;
+package hsh.problem;
 
 import com.hsh.parser.Dataset;
 

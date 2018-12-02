@@ -4,10 +4,6 @@ import com.hsh.Fitness;
 import com.hsh.parser.Dataset;
 import com.hsh.parser.Parser;
 import hsh.cs.CuckooSearch;
-import hsh.tsp.Mutation;
-import hsh.tsp.SOPDoubleBridgeMove;
-import hsh.tsp.SOPSolution;
-import hsh.tsp.SOPTwoOptSwap;
 
 import java.io.IOException;
 

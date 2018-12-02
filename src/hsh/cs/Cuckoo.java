@@ -2,7 +2,7 @@ package hsh.cs;
 
 import com.hsh.Evaluable;
 import hsh.csmath.LevyFlight;
-import hsh.tsp.Mutation;
+import hsh.problem.Mutation;
 
 import java.util.ArrayList;
 

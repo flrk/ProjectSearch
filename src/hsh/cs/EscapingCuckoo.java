@@ -1,7 +1,7 @@
 package hsh.cs;
 
 
-import hsh.tsp.Mutation;
+import hsh.problem.Mutation;
 
 public class EscapingCuckoo extends Cuckoo {
 

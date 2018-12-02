@@ -1,7 +1,8 @@
-package hsh.tsp;
+package hsh.problem.sop;
 
 import com.hsh.parser.Dataset;
-import com.hsh.parser.Node;
+import hsh.problem.Move;
+import hsh.util.SOPUtil;
 
 public class SOPDoubleBridgeMove  extends Move {
 

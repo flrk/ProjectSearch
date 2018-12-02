@@ -1,12 +1,12 @@
-package hsh.tsp;
+package hsh.problem.sop;
 
 import com.hsh.parser.Dataset;
 import com.hsh.parser.Node;
+import hsh.problem.Solution;
 
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 
-public class SOPSolution extends Solution{
+public class SOPSolution extends Solution {
     public SOPSolution(Dataset ds) {
         super(ds);
     }

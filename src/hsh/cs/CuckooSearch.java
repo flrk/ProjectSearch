@@ -3,7 +3,12 @@ package hsh.cs;
 
 import com.hsh.Evaluable;
 import com.hsh.Fitness;
-import hsh.tsp.*;
+import hsh.problem.Mutation;
+import hsh.problem.Solution;
+import hsh.problem.sop.SOPDoubleBridgeMove;
+import hsh.problem.sop.SOPSolution;
+import hsh.problem.sop.SOPTwoOptSwap;
+import hsh.problem.tsp.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

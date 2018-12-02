@@ -1,7 +1,8 @@
-package hsh.tsp;
+package hsh.problem.sop;
 
 import com.hsh.parser.Dataset;
-import com.hsh.parser.Node;
+import hsh.problem.Swap;
+import hsh.util.SOPUtil;
 
 public class SOPTwoOptSwap extends Swap {
     @Override

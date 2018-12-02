@@ -1,4 +1,4 @@
-package hsh.tsp;
+package hsh.util;
 
 public class ArrayUtil {
     public static void reverse(int[] array) {
