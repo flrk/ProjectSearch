@@ -1,17 +1,21 @@
 package hsh.tsp;
 
+import com.hsh.parser.Dataset;
+
 import java.util.Arrays;
 import java.util.Random;
 import java.util.TreeSet;
 
-public class DoubleBridgeMove {
+public abstract class Move {
     private final Random rand;
 
-    public DoubleBridgeMove(){
-        rand= new Random();
+    public Move() {
+        this.rand = new Random();
     }
 
-    public int[] doMove(int[] path){
+    abstract public int[] doMove(int[] path, Dataset dataset);
+
+    protected int[] move(int[] path){
         int[] newPath = path.clone();
         int[] indices = new int[4];
         int step = path.length;
@@ -54,5 +58,4 @@ public class DoubleBridgeMove {
 
         return result;
     }
-
 }

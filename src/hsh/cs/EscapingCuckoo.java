@@ -1,17 +1,16 @@
 package hsh.cs;
 
 
-import hsh.tsp.DoubleBridgeMove;
+import hsh.tsp.Mutation;
 
 public class EscapingCuckoo extends Cuckoo {
 
-    public EscapingCuckoo(int[] path, int oldFitness){
-        this.path = path.clone();
-        this.oldFitness = oldFitness;
+    public EscapingCuckoo(int[] path, int oldFitness, Mutation mutation){
+        super(path, oldFitness, mutation);
     }
 
     @Override
     public void makeFlight(int best, double c){
-        egg = new Egg(new DoubleBridgeMove().doMove(path));
+        egg = new Egg(mutation.doMove(path));
     }
 }

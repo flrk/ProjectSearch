@@ -1,14 +1,12 @@
 package hsh.cs;
 
 
-import hsh.tsp.DoubleBridgeMove;
-import hsh.tsp.TwoOptSwap;
+import hsh.tsp.Mutation;
 
 public class NormalCuckoo extends Cuckoo {
 
-    public NormalCuckoo(int[] path, int oldFitness){
-        this.path = path.clone();
-        this.oldFitness = oldFitness;
+    public NormalCuckoo(int[] path, int oldFitness, Mutation mutation){
+        super(path, oldFitness, mutation);
     }
 
     @Override
@@ -20,12 +18,11 @@ public class NormalCuckoo extends Cuckoo {
 
         int[] newPath = path;
         if(norm <= lastInterval){
-            TwoOptSwap twoOptSwap = new TwoOptSwap();
             for(double i = 0.0; i < norm; i += steps){
-                newPath = twoOptSwap.doSwap(newPath);
+                newPath = mutation.doSwap(newPath);
             }
         }else{
-            newPath = new DoubleBridgeMove().doMove(newPath);
+            newPath = mutation.doMove(newPath);
         }
 
         egg = new Egg(newPath);

@@ -2,15 +2,13 @@ package hsh.cs;
 
 
 import com.hsh.Fitness;
-import hsh.tsp.DoubleBridgeMove;
-import hsh.tsp.TwoOptSwap;
+import hsh.tsp.Mutation;
 
 public class SmartCuckoo extends Cuckoo {
     private Fitness fitness;
 
-    public SmartCuckoo(int[] path, int oldFitness, Fitness fitness){
-        this.path = path.clone();
-        this.oldFitness = oldFitness;
+    public SmartCuckoo(int[] path, int oldFitness, Fitness fitness, Mutation mutation){
+        super(path, oldFitness, mutation);
         this.fitness = fitness;
     }
 
@@ -27,12 +25,11 @@ public class SmartCuckoo extends Cuckoo {
 
             int[] newPath = path.clone();
             if(norm <= lastInterval){
-                TwoOptSwap twoOptSwap = new TwoOptSwap();
                 for(double i = 0.0; i < norm; i += steps){
-                    newPath = twoOptSwap.doSwap(newPath);
+                    newPath = mutation.doSwap(newPath);
                 }
             }else{
-                newPath = new DoubleBridgeMove().doMove(newPath);
+                newPath = mutation.doMove(newPath);
             }
             Egg egg = new Egg(newPath);
             fitness.evaluate(egg, -1);

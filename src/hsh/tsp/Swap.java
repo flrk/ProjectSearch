@@ -1,15 +1,17 @@
 package hsh.tsp;
 
+import com.hsh.parser.Dataset;
+
 import java.util.Random;
 
-public class TwoOptSwap {
+public abstract class Swap {
     private final Random rand;
 
-    public TwoOptSwap(){
-        rand = new Random();
+    public Swap() {
+        this.rand = new Random();
     }
 
-    public int[] doSwap(int[] path){
+    protected int[] swap(int path[]){
         int[] newPath = path.clone();
         int firstIndex = rand.nextInt(path.length);
         int secondIndex = rand.nextInt(path.length);
@@ -27,4 +29,6 @@ public class TwoOptSwap {
         ArrayUtil.reversePart(newPath,firstIndex,secondIndex);
         return newPath;
     }
+
+    abstract public int[] doSwap(int[] path, Dataset dataset);
 }

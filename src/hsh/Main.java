@@ -4,7 +4,10 @@ import com.hsh.Fitness;
 import com.hsh.parser.Dataset;
 import com.hsh.parser.Parser;
 import hsh.cs.CuckooSearch;
+import hsh.tsp.Mutation;
+import hsh.tsp.SOPDoubleBridgeMove;
 import hsh.tsp.SOPSolution;
+import hsh.tsp.SOPTwoOptSwap;
 
 import java.io.IOException;
 
@@ -23,24 +26,15 @@ public class Main {
         }catch(IOException e){
             e.printStackTrace();
         }
+
         Fitness fitness = new Fitness(dataset, false);
 
-        SOPSolution sopSolution = new SOPSolution(dataset);
-
-        for(int i = 0; i < 100; i++){
-            int[] test = sopSolution.getNewRandomSolution();
-            fitness.evaluate(test, 1);
-        }
-
-        System.out.println(fitness.getAbsolutBest());
 
 
+        CuckooSearch cs = new CuckooSearch(75,0.25,2000, fitness);
+        cs.findSolution();
 
-
-
-       //
-       // CuckooSearch cs = new CuckooSearch(25,0.25,500, fitness);
-       // cs.findSolution();
+        fitness.finish();
     }
 }
 

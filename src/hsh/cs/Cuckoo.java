@@ -2,6 +2,7 @@ package hsh.cs;
 
 import com.hsh.Evaluable;
 import hsh.csmath.LevyFlight;
+import hsh.tsp.Mutation;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,14 @@ abstract class Cuckoo extends Evaluable {
     Egg egg;
     int[] path;
     int oldFitness;
+    Mutation mutation;
+
+    public Cuckoo(int[] path, int oldFitness, Mutation mutation) {
+        this.path = path;
+        this.oldFitness = oldFitness;
+        this.egg = new Egg(path);
+        this.mutation = mutation;
+    }
 
     abstract public void makeFlight(int best, double c);
 
@@ -39,7 +48,6 @@ abstract class Cuckoo extends Evaluable {
     public Egg layEgg(){
         return egg;
     }
-
 
     @Override
     public ArrayList<Integer> getPath() {

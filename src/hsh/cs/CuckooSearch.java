@@ -3,10 +3,9 @@ package hsh.cs;
 
 import com.hsh.Evaluable;
 import com.hsh.Fitness;
-import hsh.tsp.TSPSolution;
+import hsh.tsp.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -19,6 +18,9 @@ public class CuckooSearch {
     private final int generations;
     private final int numberOfNests;
     private final Random random;
+    private Mutation mutation;
+    private Solution solution;
+
 
     public CuckooSearch(int nestNumber, double probability, int generations, Fitness fitness){
         this.nests = new ArrayList<>();
@@ -27,6 +29,13 @@ public class CuckooSearch {
         this.generations = generations;
         this.fitness = fitness;
         this.random = new Random();
+        if(fitness.getDataset().getType().equals("TSP")){
+            this.solution = new TSPSolution(this.fitness.getDataset());
+            this.mutation = new Mutation(new TSPTwoOptSwap(), new TSPDoubleBridgeMove(), this.fitness);
+        }else{
+            this.solution = new SOPSolution(this.fitness.getDataset());
+            this.mutation = new Mutation(new SOPTwoOptSwap(), new SOPDoubleBridgeMove(), this.fitness);
+        }
     }
 
     public void findSolution(){
@@ -41,8 +50,8 @@ public class CuckooSearch {
 
             ArrayList<Cuckoo> cuckoos = hatchOut(best);
             cuckoos.stream().parallel().forEach(flight(cc, best));
-
             fitness.evaluate(getAllEggs());
+
             Collections.sort(nests);
             removeEggsDiscoveredByHost();
             Collections.sort(nests);
@@ -65,12 +74,12 @@ public class CuckooSearch {
         for(Nest n : nests){
             Cuckoo cuckoo;
             if(n.getEgg().getFitness() == best && firstBestNest){
-                cuckoo = new NormalCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
+                cuckoo = new NormalCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness(), mutation);
                 firstBestNest = false;
             }else if(n.getEgg().getFitness() == best && !firstBestNest){
-                cuckoo = new EscapingCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness());
+                cuckoo = new EscapingCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness(), mutation);
             }else{
-                cuckoo = new SmartCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness(), fitness);
+                cuckoo = new SmartCuckoo(n.getEgg().getPathAsArray(), n.getEgg().getFitness(), fitness, mutation);
             }
             cuckoos.add(cuckoo);
         }
@@ -78,22 +87,19 @@ public class CuckooSearch {
     }
 
     private void initializeNests(){
-        TSPSolution tspSolution = new TSPSolution(fitness.getDataset());
         for (int i = 0; i < numberOfNests; ++i) {
-            nests.add(new Nest(new Egg(tspSolution.getNewRandomSolution())));
+            nests.add(new Nest(new Egg(this.solution.getNewRandomSolution())));
         }
         fitness.evaluate(getAllEggs());
         Collections.sort(nests);
     }
 
     private void removeEggsDiscoveredByHost() {
-        TSPSolution tspSolution = new TSPSolution(fitness.getDataset());
-
         for(int i = 1; i < nests.size(); ++i){
             if(random.nextDouble() < probability){
                 Egg newEgg;
                 if(random.nextDouble() < 0.6){
-                    newEgg = new Egg(tspSolution.getNewRandomSolution());
+                    newEgg = new Egg(this.solution.getNewRandomSolution());
                 }else{
                     newEgg = new Egg(getBestNest().getEgg().getPathAsArray());
                 }
