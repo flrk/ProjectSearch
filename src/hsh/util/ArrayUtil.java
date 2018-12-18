@@ -1,13 +1,6 @@
 package hsh.util;
 
 public class ArrayUtil {
-    public static void reverse(int[] array) {
-        for (int i = 0; i < array.length / 2; i++) {
-            int temp = array[i];
-            array[i] = array[array.length - i - 1];
-            array[array.length - i - 1] = temp;
-        }
-    }
 
     public static void reversePart(int[] array, int from, int to){
         int segmentLength = to - from;
@@ -19,7 +12,6 @@ public class ArrayUtil {
             array[endIndex - i] = temp;
         }
     }
-
 
     public static int[] concat(int[] a, int[] b){
         int[] ab = new int[a.length + b.length];

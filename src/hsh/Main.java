@@ -7,7 +7,6 @@ import hsh.cs.CuckooSearch;
 
 import java.io.IOException;
 
-
 public class Main {
     public static void main(String[] args) {
         if(args.length == 0) {
@@ -25,9 +24,7 @@ public class Main {
 
         Fitness fitness = new Fitness(dataset, false);
 
-
-
-        CuckooSearch cs = new CuckooSearch(75,0.25,2000, fitness);
+        CuckooSearch cs = new CuckooSearch(75,0.2,0.6,1000, fitness);
         cs.findSolution();
 
         fitness.finish();

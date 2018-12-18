@@ -11,7 +11,6 @@ public class SOPUtil {
             for(int y = i + 1; y < path.length; y++){
                 Node node2 = dataset.getNodeByID(result[y]);
                 if(node.distance(node2) == -1){
-
                     int tmp = result[i];
                     result[i] = result[y];
                     result[y] = tmp;

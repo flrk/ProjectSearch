@@ -18,7 +18,8 @@ import java.util.function.Consumer;
 
 public class CuckooSearch {
     private final ArrayList<Nest> nests;
-    private final double probability;
+    private final double badSolutions;
+    private final double intelligentCuckoos;
     private final Fitness fitness;
     private final int generations;
     private final int numberOfNests;
@@ -27,10 +28,11 @@ public class CuckooSearch {
     private Solution solution;
 
 
-    public CuckooSearch(int nestNumber, double probability, int generations, Fitness fitness){
+    public CuckooSearch(int nestNumber, double badSolutions, double intelligentCuckoos, int generations, Fitness fitness){
         this.nests = new ArrayList<>();
         this.numberOfNests = nestNumber;
-        this.probability = probability;
+        this.badSolutions = badSolutions;
+        this.intelligentCuckoos = intelligentCuckoos;
         this.generations = generations;
         this.fitness = fitness;
         this.random = new Random();
@@ -47,14 +49,12 @@ public class CuckooSearch {
         initializeNests();
 
         int t = 0;
-        double c = 0.01;
         while(t < generations){
-            c = 4*c*(1-c);
-            final double cc = c;
+            final double c = 0.01;
             final int best = getBestNest().getEgg().getFitness();
 
             ArrayList<Cuckoo> cuckoos = hatchOut(best);
-            cuckoos.stream().parallel().forEach(flight(cc, best));
+            cuckoos.stream().parallel().forEach(flight(c, best));
             fitness.evaluate(getAllEggs());
 
             Collections.sort(nests);
@@ -101,9 +101,9 @@ public class CuckooSearch {
 
     private void removeEggsDiscoveredByHost() {
         for(int i = 1; i < nests.size(); ++i){
-            if(random.nextDouble() < probability){
+            if(random.nextDouble() < badSolutions){
                 Egg newEgg;
-                if(random.nextDouble() < 0.6){
+                if(random.nextDouble() < intelligentCuckoos){
                     newEgg = new Egg(this.solution.getNewRandomSolution());
                 }else{
                     newEgg = new Egg(getBestNest().getEgg().getPathAsArray());

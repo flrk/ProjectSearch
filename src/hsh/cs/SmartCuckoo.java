@@ -31,6 +31,7 @@ public class SmartCuckoo extends Cuckoo {
             }else{
                 newPath = mutation.doMove(newPath);
             }
+
             Egg egg = new Egg(newPath);
             fitness.evaluate(egg, -1);
             if(currentBestFitness > egg.getFitness()){
